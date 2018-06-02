@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link as RotaLink } from '../../../rotas/Rotas'
+import { Link as RotaLink } from '../../../contextos/Roteamento/Roteamento'
 import './Link.css'
 
 

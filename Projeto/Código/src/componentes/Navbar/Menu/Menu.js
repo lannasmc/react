@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from '../../../rotas/Rotas'
+import { Link } from '../../../contextos/Roteamento/Roteamento'
+import { comContextoDeAutenticacao } from '../../../contextos/Autenticacao/Autenticacao'
 import './Menu.css'
 
 
@@ -20,6 +21,11 @@ class Menu extends Component {
         if (this.state.aberto) {
             this.abreOuFecha()
         }
+    }
+
+    handleSairClick = () => {
+        this.handleOpcaoClick()
+        this.props.autenticacao.deslogaUsuario()
     }
 
     render = () => {
@@ -49,8 +55,8 @@ class Menu extends Component {
                         </Link>
                     </li>
                     <li>
-                        {this.props.usuario ? (
-                            <Link onClick={this.props.onSairClick}>
+                        {this.props.autenticacao.usuario ? (
+                            <Link onClick={this.handleSairClick}>
                                 Sair
                             </Link>
                         ) : (
@@ -65,4 +71,4 @@ class Menu extends Component {
     }
 }
 
-export default Menu
+export default comContextoDeAutenticacao(Menu)

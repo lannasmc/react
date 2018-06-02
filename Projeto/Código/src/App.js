@@ -1,45 +1,30 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Navbar from './componentes/Navbar/Navbar'
 import Home from './paginas/Home/Home'
 import Login from './paginas/Login/Login'
 import Conta from './paginas/Conta/Conta'
 import Contato from './paginas/Contato/Contato'
 import QuemSomos from './paginas/QuemSomos/QuemSomos'
-import { Pagina, redirecionaPara } from './rotas/Rotas'
+import { Pagina } from './contextos/Roteamento/Roteamento'
+import { comContextoDeAutenticacao } from './contextos/Autenticacao/Autenticacao'
 import './App.css'
 
 
 // Este componente é como se fosse o body do HTML
-class App extends Component {
-  state = { 
-    usuario: false
-  }
+function App(props) {
+  const Inicial = props.autenticacao.usuario ? Home : Login
 
-  logaUsuario = () => {
-    this.setState({ usuario: true })
-    redirecionaPara('/')
-  }
+  return (
+    <div className="app">
+      <Navbar />
 
-  deslogaUsuario = () => {
-    this.setState({ usuario: false })
-    redirecionaPara('/login')
-  }
-
-  render = () => {
-    return (
-      <div className="app">
-        <Navbar usuario={this.state.usuario} onSairClick={this.deslogaUsuario} />
-
-        <Pagina endereco="/" componente={<Home />} />
-        <Pagina endereco="/login" componente={
-          <Login onEnviarClick={this.logaUsuario} />}
-        />
-        <Pagina endereco="/conta" componente={<Conta />} />
-        <Pagina endereco="/contato" componente={<Contato />} />
-        <Pagina endereco="/quem-somos" componente={<QuemSomos />} />
-      </div>
-    );
-  }
+      <Pagina endereco="/" componente={<Inicial />} />
+      <Pagina endereco="/login" componente={<Login />} />
+      <Pagina endereco="/conta" componente={<Conta />} />
+      <Pagina endereco="/contato" componente={<Contato />} />
+      <Pagina endereco="/quem-somos" componente={<QuemSomos />} />
+    </div>
+  );
 }
 
-export default App
+export default comContextoDeAutenticacao(App)

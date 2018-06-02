@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import createHistory from 'history/createBrowserHistory'
 
+
 const { Provider, Consumer} = React.createContext();
 
 const history = createHistory()
 
-export const redirecionaPara = history.push
-
-export class Paginas extends Component {
+export default class Roteamento extends Component {
     state = {
-        localizacao: history.location
+        localizacao: history.location,
+        redirecionaPara: history.push
     }
     
     componentDidMount = () => {
@@ -46,11 +46,11 @@ export function Pagina(props) {
 }
 
 export function Link(props) {
-    function handleLinkClick(e) {
+    function handleLinkClick(contexto, e) {
         e.preventDefault()
 
         if (props.para) {
-            redirecionaPara(props.para)
+            contexto.redirecionaPara(props.para)
         }
 
         if (props.onClick) {
@@ -59,8 +59,20 @@ export function Link(props) {
     }
 
     return (
-        <a className={props.className} onClick={handleLinkClick}>
-            {props.children}
-        </a>
+        <Consumer>
+            {contexto => (
+                <a className={props.className} onClick={handleLinkClick.bind(this, contexto)}>
+                    {props.children}
+                </a>
+            )}
+        </Consumer>
+    )
+}
+
+export function comContextoDeRoteamento(Componente) {
+    return props => (
+        <Consumer>
+            {contexto => <Componente {...props} roteamento={contexto} />}
+        </Consumer>
     )
 }

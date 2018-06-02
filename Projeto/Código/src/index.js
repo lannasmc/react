@@ -1,14 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Paginas } from './rotas/Rotas'
+import Roteamento from './contextos/Roteamento/Roteamento'
+import Autenticacao from './contextos/Autenticacao/Autenticacao'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 
 ReactDOM.render(
-    <Paginas>
-        <App />
-    </Paginas>, 
+    <Roteamento>
+        <Autenticacao>
+            <App />
+        </Autenticacao> 
+    </Roteamento>,
     document.getElementById('root')
 )
 

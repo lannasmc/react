@@ -1,20 +1,21 @@
 import React from 'react'
 import Logo from './Logo/Logo'
 import Menu from './Menu/Menu'
-import { Link } from '../../rotas/Rotas'
+import { Link } from '../../contextos/Roteamento/Roteamento'
+import { comContextoDeAutenticacao } from '../../contextos/Autenticacao/Autenticacao'
 import './Navbar.css'
 
 
 function Navbar(props) {
     return (
         <header className="navbar">
-            <Link para={props.usuario ? '/' : '/login'}>
+            <Link para="/">
                 <Logo />
             </Link>
 
-            <Menu usuario={props.usuario} onSairClick={props.onSairClick} />
+            <Menu />
         </header>
     )
 }
 
-export default Navbar
+export default comContextoDeAutenticacao(Navbar)

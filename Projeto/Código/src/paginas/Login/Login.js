@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Formulario from '../../componentes/Formulario/Formulario'
+import { comContextoDeAutenticacao } from '../../contextos/Autenticacao/Autenticacao'
 import './Login.css'
 
 
@@ -17,7 +18,7 @@ class Login extends Component {
             console.log("email", this.state.email.valor)
             console.log("senha", this.state.senha.valor)
 
-            this.props.onEnviarClick()
+            this.props.autenticacao.logaUsuario()
         }
     }
 
@@ -27,14 +28,14 @@ class Login extends Component {
         })
     }
 
-    estaDesabilitado() {
+    estaDesabilitado = () => {
         return !this.state.email.valor || 
                 this.state.email.erro ||
                !this.state.senha.valor || 
                 this.state.senha.erro
     }
     
-    render() {
+    render = () => {
         return (
             <div className="login">
                 <Formulario 
@@ -84,4 +85,4 @@ class Login extends Component {
     }
 }
 
-export default Login
+export default comContextoDeAutenticacao(Login)

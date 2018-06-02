@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from '../../../rotas/Rotas'
 import './Menu.css'
 
 
@@ -15,12 +16,10 @@ class Menu extends Component {
         })
     }
 
-    handleOpcaoClick = (onOpcaoClick, e) => {
+    handleOpcaoClick = () => {
         if (this.state.aberto) {
             this.abreOuFecha()
         }
-
-        onOpcaoClick(e)
     }
 
     render = () => {
@@ -40,19 +39,25 @@ class Menu extends Component {
 
                 <ul className={opcoesClasses.join(' ')}>
                     <li>
-                        <a onClick={this.handleOpcaoClick.bind(this, this.props.onQuemSomosClick)}>
+                        <Link para="/quem-somos" onClick={this.handleOpcaoClick}>
                             Quem somos
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a onClick={this.handleOpcaoClick.bind(this, this.props.onContatoClick)}>
+                        <Link para="/contato" onClick={this.handleOpcaoClick}>
                             Contato
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a onClick={this.handleOpcaoClick.bind(this, this.props.usuario ? this.props.onSairClick : this.props.onLoginClick)}>
-                            {this.props.usuario ? 'Sair' : 'Login'}
-                        </a>
+                        {this.props.usuario ? (
+                            <Link onClick={this.props.onSairClick}>
+                                Sair
+                            </Link>
+                        ) : (
+                            <Link para="/login" onClick={this.handleOpcaoClick}>
+                                Login
+                            </Link>
+                        )}
                     </li>
                 </ul>
             </nav>

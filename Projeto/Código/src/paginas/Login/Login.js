@@ -75,7 +75,7 @@ class Login extends Component {
                         Enviar
                     </Formulario.Botao>
 
-                    <Formulario.Link onClick={this.props.onContaClick}>
+                    <Formulario.Link para="/conta">
                         Criar uma conta
                     </Formulario.Link>
                 </Formulario>

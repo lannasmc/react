@@ -5,67 +5,38 @@ import Login from './paginas/Login/Login'
 import Conta from './paginas/Conta/Conta'
 import Contato from './paginas/Contato/Contato'
 import QuemSomos from './paginas/QuemSomos/QuemSomos'
+import { Pagina, redirecionaPara } from './rotas/Rotas'
 import './App.css'
 
 
 // Este componente é como se fosse o body do HTML
 class App extends Component {
   state = { 
-    usuario: false,
-    tela: '/login'
+    usuario: false
   }
 
   logaUsuario = () => {
-    this.setState({ 
-      usuario: true, 
-      tela: '/' 
-    })
+    this.setState({ usuario: true })
+    redirecionaPara('/')
   }
 
   deslogaUsuario = () => {
-    this.setState({ 
-      usuario: false, 
-      tela: '/login' 
-    })
-  }
-
-  abreTela = (tela, e) => {
-    e.preventDefault()
-    this.setState({tela: tela})
+    this.setState({ usuario: false })
+    redirecionaPara('/login')
   }
 
   render = () => {
     return (
-      <div className="App">
-        <Navbar 
-          usuario={this.state.usuario} 
-          onLogoClick={this.abreTela.bind(this, this.state.usuario ? '/' : '/login')}
-          onContatoClick={this.abreTela.bind(this, '/contato')}
-          onQuemSomosClick={this.abreTela.bind(this, '/quem-somos')}
-          onLoginClick={this.abreTela.bind(this, '/login')} 
-          onSairClick={this.deslogaUsuario}
-        />
+      <div className="app">
+        <Navbar usuario={this.state.usuario} onSairClick={this.deslogaUsuario} />
 
-        {this.state.tela === '/' && (
-          <Home />
-        )}
-        {this.state.tela === '/login' && (
-          <Login 
-            onEnviarClick={this.logaUsuario}
-            onContaClick={this.abreTela.bind(this, '/conta')} 
-          />
-        )}
-        {this.state.tela === '/conta' && (
-          <Conta 
-            onLoginClick={this.abreTela.bind(this, '/login')} 
-          />
-        )}
-        {this.state.tela === '/contato' && (
-          <Contato />
-        )}
-        {this.state.tela === '/quem-somos' && (
-          <QuemSomos />
-        )}
+        <Pagina endereco="/" componente={<Home />} />
+        <Pagina endereco="/login" componente={
+          <Login onEnviarClick={this.logaUsuario} />}
+        />
+        <Pagina endereco="/conta" componente={<Conta />} />
+        <Pagina endereco="/contato" componente={<Contato />} />
+        <Pagina endereco="/quem-somos" componente={<QuemSomos />} />
       </div>
     );
   }

@@ -1,12 +1,13 @@
 import React from 'react'
+import { Link as RotaLink } from '../../../rotas/Rotas'
 import './Link.css'
 
 
 function Link(props) {
     return (
-        <a className="link" onClick={props.onClick}>
+        <RotaLink className="link" para={props.para}>
             {props.children}
-        </a>
+        </RotaLink>
     );
 }
 

@@ -108,7 +108,7 @@ class Conta extends Component {
                         Enviar
                     </Formulario.Botao>
 
-                    <Formulario.Link onClick={this.props.onLoginClick}>
+                    <Formulario.Link para="/login">
                         Fazer login
                     </Formulario.Link>
                 </Formulario>
